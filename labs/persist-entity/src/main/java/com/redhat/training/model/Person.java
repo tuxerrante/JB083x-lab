@@ -1,30 +1,36 @@
 package com.redhat.training.model;
-//add required libraries
 
-//add @Entity annotation here
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Person {
+	// field based access
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-   //add annotations for primary key
-    private Long id;
+	@Column(name = "name")
+	private String personName;
 
-    //add @Column(name="name") annotation to map column in database table
-    private String personName;
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getPersonName() {
+		return personName;
+	}
 
-    public String getPersonName() {
-        return personName;
-    }
-
-    public void setName(String personName) {
-        this.personName = personName;
-    }
+	public void setName(String personName) {
+		this.personName = personName;
+	}
 
 	@Override
 	public int hashCode() {
@@ -51,5 +57,4 @@ public class Person {
 		return true;
 	}
 
-    
 }

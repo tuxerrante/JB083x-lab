@@ -17,11 +17,9 @@
 
     <dependencies>
 
-        <!-- First declare the APIs we depend on and need for compilation. All
-            of them are provided by JBoss EAP -->
+        <!-- First declare the APIs we depend on and need for compilation. All of them are provided by JBoss EAP -->
 
-        <!-- Import the CDI API, we use provided scope as the API is included in
-            JBoss EAP -->
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -136,8 +134,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <archive>
                         <manifestEntries>
-                            <Dependencies>com.google.guava,org.slf4j
-                            </Dependencies>
+                            <Dependencies>com.google.guava,org.slf4j</Dependencies>
                         </manifestEntries>
                     </archive>
                 </configuration>

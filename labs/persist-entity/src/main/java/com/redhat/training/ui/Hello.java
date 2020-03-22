@@ -26,22 +26,24 @@ public class Hello {
 		try {
 			String response = personService.hello(name);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(response));
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			System.out.println(e.getCause());
-			if(e.getCause() != null && e.getCause() instanceof ConstraintViolationException) {
+
+			if (e.getCause() != null && e.getCause() instanceof ConstraintViolationException) {
 				ConstraintViolationException ex = (ConstraintViolationException) e.getCause();
 				String violations = "";
-				for(ConstraintViolation<?> cv: ex.getConstraintViolations()) {
-					
+				for (ConstraintViolation<?> cv : ex.getConstraintViolations()) {
+
 					violations += cv.getMessage() + "\n";
-					
-					System.out.println("Violations: "+violations);
+
+					System.out.println("Violations: " + violations);
 				}
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(violations));
 			}
-			
+
 		}
-		
+
 	}
 
 	public String getName() {
@@ -51,44 +53,40 @@ public class Hello {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    /*public void getPerson() {
-    	try {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void getPerson() {
+		try {
 			String response = personService.getPerson(id);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(response));
-		}catch(Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getCause());
-			if(e.getCause() != null && e.getCause() instanceof ConstraintViolationException) {
+			if (e.getCause() != null && e.getCause() instanceof ConstraintViolationException) {
 				ConstraintViolationException ex = (ConstraintViolationException) e.getCause();
 				String violations = "";
-				for(ConstraintViolation<?> cv: ex.getConstraintViolations()) {
-					
+				for (ConstraintViolation<?> cv : ex.getConstraintViolations()) {
+
 					violations += cv.getMessage() + "\n";
-					
-					System.out.println("Violations: "+violations);
+
+					System.out.println("Violations: " + violations);
 				}
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(violations));
 			}
-			
+
 		}
-        
-    }*/
-    
-	
-	/*public List<Person> getPersons() {
+
+	}
+
+	public List<Person> getPersons() {
 		return personService.getAllPersons();
-		
-	}*/
-	
-	
-	
+
+	} 
 
 }

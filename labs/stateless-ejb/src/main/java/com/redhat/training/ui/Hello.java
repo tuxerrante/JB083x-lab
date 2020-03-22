@@ -12,13 +12,14 @@ import com.redhat.training.ejb.HelloBean;
 @Named("hello")
 public class Hello {
 	private String name;
-	
+
 	@EJB
 	HelloBean helloEJB;
 
 	public String greet() {
 		return helloEJB.sayHello(name);
 	}
+
 	public void sayHello() {
 		String response = greet();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(response));

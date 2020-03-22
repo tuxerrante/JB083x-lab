@@ -15,57 +15,24 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-    <dependencies>		
+	<dependencies>
 
-        <!-- First declare the APIs we depend on and need for compilation. All of them are provided by JBoss EAP -->
-        <!-- Import the CDI API, we use provided scope as the API is included in
-            JBoss EAP -->
-         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Import the EJB API, we use provided scope as the API is included in JBoss EAP -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Import the JSF API, we use provided scope as the API is included in JBoss EAP -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.faces</groupId>
-            <artifactId>jboss-jsf-api_2.2_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-
-         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-    		<groupId>org.jboss.arquillian.junit</groupId>
-    		<artifactId>arquillian-junit-container</artifactId>
-    		<scope>test</scope>
+		<dependency>
+			<groupId>com.oracle.weblogic</groupId>
+			<artifactId>weblogic-server-pom</artifactId>
+			<version>${version.weblogic.plugin}</version>
+			<type>pom</type>
+			<scope>provided</scope>
 		</dependency>
 
-        <dependency>
-            <groupId>org.jboss.arquillian.protocol</groupId>
-            <artifactId>arquillian-protocol-servlet</artifactId>
-            <scope>test</scope>
-        </dependency>
 
-        <!-- Need to explicitly reference this version, or else there will be an exception
-        due to a bug in Arquilian -->
-        <dependency>
-		    <groupId>org.wildfly.arquillian</groupId>
-		    <artifactId>wildfly-arquillian-common</artifactId>
-		    <version>2.0.0.Final</version>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
+	</dependencies>
 
-    </dependencies>
 
     <build>
         <finalName>stateless-ejb</finalName>
@@ -84,8 +51,29 @@
                     </archive>
                 </configuration>
             </plugin>
+            
+            <!-- WebLogic Server Maven Plugin -->
+			<plugin>
+				<groupId>com.oracle.weblogic</groupId>
+				<artifactId>weblogic-maven-plugin</artifactId>
+				<version>${version.weblogic.plugin} </version>
+				<executions>
+					<execution>
+						<id>wls-appc</id>
+						<phase>package</phase>
+						<goals>
+							<goal>appc</goal>
+						</goals>
+						<configuration>
+							<source>${project.build.directory}/${project.name}.${project.packaging}</source>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
         </plugins>
     </build>
+
 
     <profiles>
         <profile>

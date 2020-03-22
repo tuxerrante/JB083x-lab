@@ -21,7 +21,7 @@
 				<ul>
 					<ui:repeat value="#{hello.persons}" var="person">
 						<li>
-							<strong>Name:</strong><h:outputText value="#{person.personName}"/><br/>
+							<strong><h:outputText value="#{person.id}"/></strong>: <h:outputText value="#{person.personName}"/><br/>
 							
 						</li>
 					</ui:repeat>

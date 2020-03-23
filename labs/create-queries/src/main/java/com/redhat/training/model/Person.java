@@ -1,14 +1,20 @@
 package com.redhat.training.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 @Entity
-//add named query here
+@NamedQuery(
+		name = "getAllPersonWithName",
+		query = "SELECT p FROM Person p where UPPER(p.name) = UPPER(:pname)"
+		)
 
 public class Person{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;

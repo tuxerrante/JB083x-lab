@@ -9,8 +9,6 @@ import com.redhat.training.services.PersonService;
 import javax.inject.Inject;
 import java.util.List;
 
-
-
 @RequestScoped
 @Named("hello")
 public class Hello {
@@ -30,31 +28,29 @@ public class Hello {
 	}
 
 	public Long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-      //View all persons in the database table
-      /*public List<Person> getPersons() {
+	// View all persons in the database table
+	public List<Person> getPersons() {
 		return personService.getAllPersons();
-	}*/
+	}
 
-    //view all persons whose name matches the name given in the query
-		/*public void search() {
-					results = personService.getPersonsWithName(name);
-	  }*/
+	// view all persons whose name matches the name given in the query
+	public void search() {
+		results = personService.getPersonsWithName(name);
+	}
 
-		public List<Person> getResults() {
-						return results;
-		}
+	public List<Person> getResults() {
+		return results;
+	}
 
-		public void setResults(List<Person> results) {
-						this.results = results;
-		}
-
-
+	public void setResults(List<Person> results) {
+		this.results = results;
+	}
 
 }

@@ -18,8 +18,7 @@ public class UserGroup {
 
 	private String name;
 
-	//TODO map relationship
-
+	@OneToMany(mappedBy="userGroup", fetch = FetchType.LAZY )
 	private Set<User> users;
 
 	public Long getId() {

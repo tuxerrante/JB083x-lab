@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -15,8 +16,7 @@ public class Email {
 
 	private String address;
 
-	//TODO map relationship
-
+	@OneToOne(mappedBy = "email")
 	private User user;
 
 	public Long getId() {

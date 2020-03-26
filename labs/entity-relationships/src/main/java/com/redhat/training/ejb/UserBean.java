@@ -17,9 +17,9 @@ public class UserBean {
 	@Inject
 	private EntityManager em;
 
-	//TODO Add JOIN FETCH 
 	public Set<UserGroup> getAllUserGroups(){
-		TypedQuery<UserGroup> query = em.createQuery("SELECT g FROM UserGroup g" , UserGroup.class);
+		// overrides users lazy loading
+		TypedQuery<UserGroup> query = em.createQuery("SELECT g FROM UserGroup g JOIN FETCH g.users" , UserGroup.class);
 
         return new HashSet<UserGroup>(query.getResultList());
 	}

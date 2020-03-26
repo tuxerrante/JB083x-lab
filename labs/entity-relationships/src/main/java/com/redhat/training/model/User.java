@@ -18,12 +18,13 @@ public class User {
 
 	private String name;
 
-	//TODO map relationship
-
+	@OneToOne
+	// This tells JPA which column to use when joining the User table to the Email table
+	@JoinColumn(name="emailID")
 	private Email email;
 
-	//TODO map relationship
-
+	@ManyToOne
+	@JoinColumn(name = "groupID")
 	private UserGroup userGroup;
 
 	public Long getId() {

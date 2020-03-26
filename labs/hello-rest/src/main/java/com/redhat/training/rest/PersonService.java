@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.activation.MimeType;
 import javax.annotation.Resource;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -27,14 +28,10 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import com.redhat.training.model.Person;
 
-//TODO Add the stateless annotation
-
-//TODO Add a Path for persons
-
-//TODO Add a Consumes annotation for JSON
-
-//TODO Add a Produces annotation for JSON
-
+@Stateless
+@Path("person")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 @TransactionManagement(TransactionManagementType.BEAN)
 public class PersonService {
 
@@ -78,17 +75,13 @@ public class PersonService {
 	// CRUD RESTful methods below
 
 	// fetch result by Person id
-	//TODO add GET annotation
-
-	//TODO add path for ID
-
-	public Person getPerson(Long id) {
+	@GET
+	@Path("{id}")
+	public Person getPerson(@PathParam("id") Long id) {
 		return entityManager.find(Person.class, id);
 	}
 
-	// Dump all Person objects in the Database
-	//TODO add GET annotation
-
+	@GET
 	public List<Person> getAllPersons() {
 		TypedQuery<Person> query = entityManager.createQuery("SELECT p FROM Person p", Person.class);
 		List<Person> persons = query.getResultList();
@@ -97,49 +90,46 @@ public class PersonService {
 	}
 
 	// delete an object by Person id
-	//TODO add DELETE annotation
-
-	//TODO add Path for ID
-
-    public void deletePerson(Long id) {
+	@DELETE
+	@Path("{id}")
+	public void deletePerson(@PathParam("id") Long id) {
+		try {
 			try {
-				try {
-					tx.begin();
-					entityManager.remove(getPerson(id));
-				} finally {
-					tx.commit();
-				}
-			} catch (Exception e) {
-				throw new EJBException();
+				tx.begin();
+				entityManager.remove(getPerson(id));
+			} finally {
+				tx.commit();
 			}
-    }
+		} catch (Exception e) {
+			throw new EJBException();
+		}
+	}
 
 	// Save a Person object to Database
-	//TODO add POST annotation
-
+	@POST
 	public Response savePerson(Person person) {
 		try {
 			try {
-			ResponseBuilder builder;
-			if (person.getId() == null) {
-				Person newPerson = new Person();
-				newPerson.setName(person.getName());
-				tx.begin();
-				entityManager.persist(newPerson);
-				builder = Response.ok();
-			} else {
-				Person uPerson;
-				Person updatePerson = getPerson(person.getId());
-				updatePerson.setName(person.getName());
-				uPerson = entityManager.merge(updatePerson);
-				builder = Response.ok(uPerson);
-			}
+				ResponseBuilder builder;
+				if (person.getId() == null) {
+					Person newPerson = new Person();
+					newPerson.setName(person.getName());
+					tx.begin();
+					entityManager.persist(newPerson);
+					builder = Response.ok();
+				} else {
+					Person uPerson;
+					Person updatePerson = getPerson(person.getId());
+					updatePerson.setName(person.getName());
+					uPerson = entityManager.merge(updatePerson);
+					builder = Response.ok(uPerson);
+				}
 
-			return builder.build();
-			}finally {
+				return builder.build();
+			} finally {
 				tx.commit();
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new EJBException(e);
 		}
 	}
